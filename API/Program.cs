@@ -15,7 +15,15 @@ builder.Services.AddDbContext<DataContext>(opt =>
 {
      opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-builder.Services.AddScoped<DataContext>();
+
+builder.Services.AddCors(opt =>
+{
+    opt.AddPolicy("CorsPolicy", policy =>
+    {
+        policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
+    });
+});
+//builder.Services.AddScoped<DataContext>();
 
 
 var app = builder.Build();
@@ -35,7 +43,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseHttpsRedirection();
+app.UseHttpsRedirection();
+
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 
