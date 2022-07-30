@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Item, Label, Segment } from 'semantic-ui-react';
 import { Activity } from '../../../app/models/activity';
+import App from '../../../app/layout/App';
 
 interface Props {
     activities: Activity[];
@@ -9,6 +10,10 @@ interface Props {
 }
 
 export default function ActivityList({ activities, selectActivity, deleteActivity }: Props) {
+
+
+    //const [activity] = useState<Activity[]>([]);
+
     return (
         <Segment>
             <Item.Group divided>
