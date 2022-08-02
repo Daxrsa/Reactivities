@@ -6,8 +6,7 @@ import './styles.css';
 import ActivityDashboard from '../../features/activities/dashboard/ActivityDashboard';
 import { v4 as uuid } from 'uuid';
 import agent from '../api/agent';
-import axios, { Axios, AxiosResponse } from "axios";
-import LoadingComponents from './LoadingComponents';
+import LoadingComponent from './LoadingComponent';
 
 export default function App() {
 
@@ -61,20 +60,23 @@ export default function App() {
       activity.id = uuid();
       agent.Activities.create(activity).then(() => {
         setActivities([...activities, activity])
+        setSelectedActivity(activity);
+        setEditMode(false);
+        setSubmitting(false);
       })
     }
-    activity.id
-      ? setActivities([...activities.filter(x => x.id !== activity.id), activity])
-      : setActivities([...activities, { ...activity, id: uuid() }]);
-    setEditMode(false);
-    setSelectedActivity(activity);
   }
 
   function handleDeleteActivity(id: string) {
-    setActivities([...activities.filter(x => x.id !== id)])
+    setSubmitting(true);
+    agent.Activities.delete(id).then(() => {
+      setActivities([...activities.filter(x => x.id !== id)]);
+      setSubmitting(false);
+    })
+    
   }
-//spo bon mir
-  if (loading) return <LoadingComponents content='Loading app' />
+  //spo bon mir
+  if (loading) return <LoadingComponent content='Loading app' />
 
   return (
     <>
@@ -91,6 +93,7 @@ export default function App() {
           closeForm={handleFormClose}
           createOrEdit={handleCreateOrEditActivity}
           deleteActivity={handleDeleteActivity}
+          submitting={submitting}
         />
       </Container>
     </>

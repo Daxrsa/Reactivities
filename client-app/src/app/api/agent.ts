@@ -1,6 +1,6 @@
 import axios, { Axios, AxiosResponse } from "axios";
 import { Activity } from "../models/activity";
-//spo bon
+
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
         setTimeout(resolve, delay)
@@ -8,10 +8,11 @@ const sleep = (delay: number) => {
 }
 
 axios.defaults.baseURL = 'http://localhost:5062/api';
-//spo bon
+
+
 axios.interceptors.response.use(async response => {
     try {
-        sleep(1000);
+        await sleep(1000);
         return response;
     } catch (error) {
         console.log(error);
