@@ -1,18 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-//import 'semantic-ui-css/semantic.min.css'; //doesn't work 
-//import 'fomantic-ui-css/semantic.css';  //doesn't work 
-import '../src/app/layout/styles.css';
-import App from '../src/app/layout/App';
+import 'semantic-ui-css/semantic.min.css';
+import App from './app/layout/App';
+import './app/layout/styles.css';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
- 
     <App />
-  
 );
 
 // If you want to start measuring performance in your app, pass a function
